@@ -17,6 +17,7 @@
                 </div>
                 <div class="card-body">
                     <p class="card-text">{{$post->content}}</p>
+                    <p class="card-text">Slug: {{$post->slug}}</p>
                     <a href="{{route('posts.show', $post->id)}}"><button type="button" class="btn btn-primary">Show the post</button></a>
                     <a href="{{route('posts.edit', $post->id)}}"><button type="button" class="btn btn-warning">Edit post</button></a>
                     <a href="{{route('posts.destroy', $post->id)}}"><button type="button" class="btn btn-danger">Delete the post</button></a>

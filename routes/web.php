@@ -19,7 +19,7 @@ Route::get('/', function () {
 
 Auth::routes();
 
-// dichiarazione dell'area privata grazie al middleware che verifica l'autenticazione
+// dichiarazione dell'area privata grazie al middleware che verifica l'autenticazione (Backoffice)
 Route::prefix('admin')
 ->namespace('Admin')
 ->middleware('auth')
