@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
+use App\Post;
 
 class PostController extends Controller
 {
@@ -14,7 +16,9 @@ class PostController extends Controller
      */
     public function index()
     {
-        //
+        // $posts = DB::table('posts')->where('posted', true)->get();
+        $posts = Post::all();
+        return view('admin.posts.index_posts', ['posts'=>$posts]);
     }
 
     /**
@@ -24,7 +28,7 @@ class PostController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.posts.create_post');
     }
 
     /**
@@ -34,8 +38,22 @@ class PostController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
-        //
+    {   
+        $request->validate([
+            'title'=>'required|string|max:150',
+            'content'=>'required|string',
+            'posted' => 'sometimes|accepted',
+        ]);
+        
+        $data = $request->all();
+
+        $newPost = new Post();
+        $newPost->title = $data['title'];
+        $newPost->content = $data['content'];
+        $newPost->posted = isset($data['posted']);
+
+        $newPost->save();
+        return redirect()->route('post.show',$newPost->id);
     }
 
     /**
@@ -45,8 +63,9 @@ class PostController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show($id)
-    {
-        //
+    {   
+        $post = DB::table('posts')->where('id',$id)->get();
+        return view('admin.posts.show_post', ['post' => $post[0]]);
     }
 
     /**
