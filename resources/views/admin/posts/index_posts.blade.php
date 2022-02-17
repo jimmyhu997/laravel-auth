@@ -20,7 +20,13 @@
                     <p class="card-text">Slug: {{$post->slug}}</p>
                     <a href="{{route('posts.show', $post->id)}}"><button type="button" class="btn btn-primary">Show the post</button></a>
                     <a href="{{route('posts.edit', $post->id)}}"><button type="button" class="btn btn-warning">Edit post</button></a>
-                    <a href="{{route('posts.destroy', $post->id)}}"><button type="button" class="btn btn-danger">Delete the post</button></a>
+                    <div class="d-inline-block">
+                        <form action="{{route('posts.destroy', $post->id)}}" method="POST">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-danger">Delete the post</button>
+                        </form>
+                    </div>
                 </div>
             </div>
         @endforeach

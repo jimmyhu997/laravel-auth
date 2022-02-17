@@ -10,8 +10,15 @@
         @else
             <h5 class="card-title text-danger">Un-published</h5>
         @endif
-        <a href="{{route('posts.index')}}"><button type="button" class="btn btn-success">Back Home Page</button></a>
-        <a href="{{route('posts.edit', $post->id)}}"><button type="button" class="btn btn-warning">Edit post</button></a>
-        <a href="{{route('posts.destroy', $post->id)}}"><button type="button" class="btn btn-danger">Delete the post</button></a>
+        <div class="d-flex">
+            <a href="{{route('posts.index')}}"><button type="button" class="btn btn-success">Back Home Page</button></a>
+            <a href="{{route('posts.edit', $post->id)}}"><button type="button" class="btn btn-warning">Edit post</button></a>
+            <form action="{{route('posts.destroy', $post->id)}}" method="POST">
+                @csrf
+                @method('DELETE')
+                <button type="submit" class="btn btn-danger">Delete the post</button>
+            </form>
+      
+        </div>
     </div>
 @endsection
